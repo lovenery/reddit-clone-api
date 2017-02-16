@@ -14,7 +14,15 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlengh: [8, 'Password must be 5 characters or more.']
-    }
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now
+    },
 })
 
 const User = mongoose.model('User', userSchema)
