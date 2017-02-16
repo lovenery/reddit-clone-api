@@ -34,7 +34,12 @@ postController.getAll = (req, res) => {
     db.Post.find({}).populate({
         path: '_creator',
         select: '-_id username createdAt'
-    }).then((posts) => {
+    }).populate({
+        path: '_comments',
+        select: '-_id text _creator createdAt',
+        match: { 'isDeleted': false } // get isDeleted==false
+    })
+    .then((posts) => {
         return res.status(200).json({
             success: true,
             data: posts
